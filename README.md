@@ -15,4 +15,4 @@
 ## Video
 
 - Here is a link to the video of the working code.
-[SVG Logo Generator]()
+[SVG Logo Generator](https://drive.google.com/file/d/1FvriEg_YahzebgrXv0XqCGsqWbI5F0mP/view?usp=sharing)
