@@ -1,7 +1,9 @@
 
+
+
 const fs = require('fs')
 const inquirer = require('inquirer')
-const { Shape, Circle, Triangle, Square} = require('./lib/shapes')
+const { Circle, Triangle, Square} = require('./lib/shapes')
 
 const questions = [
   {
@@ -10,7 +12,7 @@ const questions = [
     name: 'text',
     validate: (data) => {
       if (data.length > 3) {
-        return console.log('Please enter 3 or less characters.');
+        return console.log('\n Please enter 3 or less characters.');
       }
       return true;
     }
@@ -35,8 +37,37 @@ const questions = [
   },
 ]
 
-inquirer
-  .prompt(questions)
-  .then ( (data) => {
-    console.log(data)
+function init() {
+  inquirer
+    .prompt(questions)
+    .then ( (data) => {
+        makeLogo(data)
   })
+    .catch(err => {
+      console.log(err)
+    });
+}
+
+
+function pickShape (data) {
+  if (data.shape === 'circle') {
+    let userShape = new Circle (data.textColor, data.text, data.shapeColor);
+    return userShape.render()
+  }
+  if (data.shape === 'triangle') {
+    let userShape = new Triangle (data.textColor, data.text, data.shapeColor);
+    return userShape.render()
+  }
+  if (data.shape === 'square') {
+    let userShape = new Square (data.textColor, data.text, data.shapeColor);
+    return userShape.render()
+  }
+}
+
+function makeLogo (data) {
+  const logo = pickShape(data);
+  fs.writeFile('logo.svg', logo, ()=>
+  console.log('Generated logo.svg'))
+}
+
+init()
